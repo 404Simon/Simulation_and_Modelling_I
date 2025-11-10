@@ -3,6 +3,7 @@ import java.util.PriorityQueue;
 public class SimulationEngine {
   private PriorityQueue<Event> queue = new PriorityQueue<>();
   private double now = 0.0;
+  private long eventCount = 0;
 
   public void schedule(Event e) {
     queue.add(e);
@@ -34,5 +35,10 @@ public class SimulationEngine {
     Event e = queue.poll();
     now = e.time;
     e.target.handleEvent(e, this);
+    eventCount++;
+  }
+
+  public long getEventCount() {
+    return eventCount;
   }
 }
