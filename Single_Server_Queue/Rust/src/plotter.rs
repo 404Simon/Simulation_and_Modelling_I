@@ -163,11 +163,11 @@ impl InteractivePlotViewer {
             return;
         }
 
-        egui::Frame::none()
+        egui::Frame::new()
             .fill(theme.frame_fill)
             .stroke(egui::Stroke::new(1.0, theme.frame_stroke))
-            .rounding(5.0)
-            .inner_margin(egui::Margin::same(10.0))
+            .corner_radius(5.0)
+            .inner_margin(egui::Margin::same(10))
             .show(ui, |ui| {
                 ui.set_width(ui.available_width());
 
@@ -193,7 +193,7 @@ impl InteractivePlotViewer {
                                 .allow_scroll(true);
 
                             if state.take_reset() {
-                                plot = plot.auto_bounds(egui::Vec2b::TRUE);
+                                plot = plot.auto_bounds([true, true]);
                             }
 
                             let plot_response = plot.show(ui, |plot_ui| {
@@ -203,7 +203,7 @@ impl InteractivePlotViewer {
 
                                 let points: PlotPoints =
                                     data.iter().map(|(t, v)| [*t, to_f64(*v)]).collect();
-                                plot_ui.line(Line::new(points).color(color).name(legend_name));
+                                plot_ui.line(Line::new(legend_name, points).color(color));
 
                                 plot_ui.plot_bounds()
                             });
@@ -220,11 +220,11 @@ impl InteractivePlotViewer {
                     egui::Area::new(egui::Id::new(plot_id).with("_controls"))
                         .fixed_pos(button_pos)
                         .show(ui.ctx(), |ui| {
-                            egui::Frame::none()
+                            egui::Frame::new()
                                 .fill(theme.button_fill)
                                 .stroke(egui::Stroke::new(1.0, theme.button_stroke))
-                                .rounding(4.0)
-                                .inner_margin(egui::Margin::same(5.0))
+                                .corner_radius(4.0)
+                                .inner_margin(egui::Margin::same(5))
                                 .show(ui, |ui| {
                                     ui.horizontal(|ui| {
                                         ui.spacing_mut().item_spacing.x = 3.0;

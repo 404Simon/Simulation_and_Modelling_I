@@ -1,14 +1,13 @@
 [package]
 name = "rust_single_server_queue"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 [dependencies]
-fastrand = "2.0"
-plotters = "0.3"
-eframe = "0.29"
-egui = "0.29"
-egui_plot = "0.29"
+fastrand = "2.3"
+plotters = "0.3.7"
+eframe = "0.32"
+egui_plot = "0.33"
 
 [profile.release]
 opt-level = 3
