@@ -51,7 +51,7 @@ impl Server {
 
         let mut stats = self.stats.borrow_mut();
         stats.record_queue_change(now, self.queue.len());
-        stats.record_service_start(wait_time);
+        stats.record_service_start(now, wait_time);
         drop(stats);
 
         self.busy = true;
@@ -70,7 +70,9 @@ impl Server {
         let service_duration = now - self.service_start_time;
 
         self.busy = false;
-        self.stats.borrow_mut().record_service_end(service_duration);
+        self.stats
+            .borrow_mut()
+            .record_service_end(now, service_duration);
 
         if !self.queue.is_empty() {
             self.start_service(engine);

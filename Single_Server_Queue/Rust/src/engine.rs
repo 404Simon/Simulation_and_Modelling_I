@@ -73,16 +73,4 @@ impl SimulationEngine {
 
         event
     }
-
-    #[inline]
-    pub fn queue_size(&self) -> usize {
-        let mut count = 0;
-        if self.next_arrival.is_some() {
-            count += 1;
-        }
-        if self.next_departure.is_some() {
-            count += 1;
-        }
-        count
-    }
 }
